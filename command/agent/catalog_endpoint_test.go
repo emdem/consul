@@ -23,13 +23,11 @@ func TestCatalogRegister(t *testing.T) {
 	testrpc.WaitForLeader(t, srv.agent.RPC, "dc1")
 
 	// Register node
-	req, _ := http.NewRequest("GET", "/v1/catalog/register", nil)
 	args := &structs.RegisterRequest{
 		Node:    "foo",
 		Address: "127.0.0.1",
 	}
-	req.Body = encodeReq(args)
-
+	req, _ := http.NewRequest("GET", "/v1/catalog/register", tojson(args))
 	obj, err := srv.CatalogRegister(nil, req)
 	if err != nil {
 		t.Fatalf("err: %v", err)
@@ -61,12 +59,8 @@ func TestCatalogDeregister(t *testing.T) {
 	testrpc.WaitForLeader(t, srv.agent.RPC, "dc1")
 
 	// Register node
-	req, _ := http.NewRequest("GET", "/v1/catalog/deregister", nil)
-	args := &structs.DeregisterRequest{
-		Node: "foo",
-	}
-	req.Body = encodeReq(args)
-
+	args := &structs.DeregisterRequest{Node: "foo"}
+	req, _ := http.NewRequest("GET", "/v1/catalog/deregister", tojson(args))
 	obj, err := srv.CatalogDeregister(nil, req)
 	if err != nil {
 		t.Fatalf("err: %v", err)
