@@ -4,9 +4,17 @@ FEATURES:
 
 IMPROVEMENTS:
 
+* agent: Added a check which prevents advertising or setting a service to a zero address (`0.0.0.0`, `[::]`, `::`). [GH-2961]
+
 BUG FIXES:
 
+* build: Added a vendor fix to allow compilation on Illumos. [GH-3024]
+
 ## 0.8.2 (May 9, 2017)
+
+BREAKING CHANGES:
+
+* api: HttpClient now defaults to nil in the client config and will be generated if left blank. A NewHttpClient function has been added for creating an HttpClient with a custom Transport or TLS config. [GH-2922]
 
 IMPROVEMENTS:
 
